@@ -1,15 +1,11 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../../contexts/AuthContext';
+import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import Card from '../../components/Card/Card';
-import EditIcon from '@mui/icons-material/Edit';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { useNavigate } from 'react-router-dom';
 import perfumeImage from '../../assets/perfume.webp';
 import './Home.css'
+import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
-  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const product = {
@@ -18,44 +14,28 @@ const Home: React.FC = () => {
     price: 'R$ 199,99',
   };
 
-  const handleEditProfile = () => {
-    navigate('/edit-profile');
-  };
-
-  const handleLogout = () => {
-    navigate('/');
+  const handleContact = () => {
+    navigate('/contact');
   };
 
   return (
-    <Layout>
+    <Layout>      
       <div id='row'>
-        <h2>Bem-vindo, {user?.name}!</h2>
-        <div id='editButton' className='button' onClick={handleEditProfile}>
-          <EditIcon />
-        </div>
-        <div className='button' onClick={handleLogout}>
-          <LogoutIcon />
-        </div>
-      </div>
-      
-      <h3>Você está logado como: {user?.email}</h3>
-
-      <div id='row'>
-        <Card image={product.image} title={product.title} price={product.price} />
-        <Card image={product.image} title={product.title} price={product.price} />
-        <Card image={product.image} title={product.title} price={product.price} />
+        <Card image={product.image} title={product.title} price={product.price} onClick={handleContact}/>
+        <Card image={product.image} title={product.title} price={product.price} onClick={handleContact}/>
+        <Card image={product.image} title={product.title} price={product.price} onClick={handleContact}/>
       </div>
 
       <div id='row'>
-        <Card image={product.image} title={product.title} price={product.price} />
-        <Card image={product.image} title={product.title} price={product.price} />
-        <Card image={product.image} title={product.title} price={product.price} />
+        <Card image={product.image} title={product.title} price={product.price} onClick={handleContact}/>
+        <Card image={product.image} title={product.title} price={product.price} onClick={handleContact}/>
+        <Card image={product.image} title={product.title} price={product.price} onClick={handleContact}/>
       </div>
 
       <div id='row'>
-        <Card image={product.image} title={product.title} price={product.price} />
-        <Card image={product.image} title={product.title} price={product.price} />
-        <Card image={product.image} title={product.title} price={product.price} />
+        <Card image={product.image} title={product.title} price={product.price} onClick={handleContact}/>
+        <Card image={product.image} title={product.title} price={product.price} onClick={handleContact}/>
+        <Card image={product.image} title={product.title} price={product.price} onClick={handleContact}/>
       </div>
 
     </Layout>

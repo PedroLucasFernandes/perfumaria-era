@@ -5,16 +5,17 @@ type CardProps = {
     image: string;
     title: string;
     price: string;
+    onClick?: () => void;
 };
 
-const Card: React.FC<CardProps> = ({ image, title, price }) => {
-    return (
-      <div className="card">
-        <img src={image} alt={title} className="card-image" />
-        <h1 className="card-title">{title}</h1>
-        <h3 className="card-price">{price}</h3>
-      </div>
-    );
-  };
+const Card: React.FC<CardProps> = ({ image, title, price, onClick }) => {
+  return (
+    <div className="card" onClick={onClick}>
+      <img src={image} alt={title} className="card-image" />
+      <h1 className="card-title">{title}</h1>
+      <h3 className="card-price">{price}</h3>
+    </div>
+  );
+};
   
-  export default Card;
+export default Card;

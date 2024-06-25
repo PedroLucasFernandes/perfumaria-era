@@ -1,21 +1,13 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
-import Home from './views/Home/Home';
-import Login from './views/Login/Login';
-import EditProfile from './views/EditProfile/EditProfile';
+import { Outlet } from 'react-router-dom';
+import Navbar from './components/Navbar/Navbar';
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <AuthProvider>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/edit-profile" element={<EditProfile />} />
-        </Routes>
-      </AuthProvider>
-    </Router>
+    <div>
+      <Navbar />
+      <Outlet />
+    </div>
   );
 };
 
