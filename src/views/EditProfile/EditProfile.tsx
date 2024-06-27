@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 import Input from '../../components/Input/Input';
@@ -14,9 +14,6 @@ const EditProfile: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setUser({ ...user!, name, email });
-
-    event.preventDefault();
     if (!name || !validateName(name)) {
       alert('Por favor, preencha o seu nome, ele deve conter apenas letras e espaços.');
       return;
@@ -27,8 +24,17 @@ const EditProfile: React.FC = () => {
       return;
     }
 
+    setUser({ ...user!, name, email });
     navigate('/home');
   };
+
+  const validateAndSetEmail = useMemo(() => {
+    return (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
+  }, []);
+
+  const validateAndSetName = useMemo(() => {
+    return (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value);
+  }, []);
 
   return (
     <Layout>
@@ -39,13 +45,13 @@ const EditProfile: React.FC = () => {
             type="text"
             placeholder="Nome"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={validateAndSetName}
           />
           <Input
             type="email"
             placeholder="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={validateAndSetEmail}
           />
           <Button type="submit">Salvar</Button>
         </form>

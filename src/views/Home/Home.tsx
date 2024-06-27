@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Layout from '../../components/Layout/Layout';
 import Card from '../../components/Card/Card';
 import './Home.css';
@@ -13,22 +13,24 @@ const Home: React.FC = () => {
     navigate('/contact');
   };
 
-  let content = null;
-  if (loading) {
-    content = <div>Loading...</div>;
-  } else if (error) {
-    content = <div>Error: {JSON.stringify(error)}</div>;
-  } else if (value) {
-    const { Title, Year, Poster } = value;
-    content = (
-      <Card
-        image={Poster}
-        title={Title}
-        year={Year}
-        onClick={handleContact}
-      />
-    );
-  }
+  const content = useMemo(() => {
+    if (loading) {
+      return <div>Loading...</div>;
+    } else if (error) {
+      return <div>Error: {JSON.stringify(error)}</div>;
+    } else if (value) {
+      const { Title, Year, Poster } = value;
+      return (
+        <Card
+          image={Poster}
+          title={Title}
+          year={Year}
+          onClick={handleContact}
+        />
+      );
+    }
+    return null;
+  }, [loading, error, value]);
 
   return (
     <Layout>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { validateEmail, validateName } from '../../utils/validations';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -28,6 +28,14 @@ const Login: React.FC = () => {
     navigate('/home');
   };
 
+  const validateAndSetEmail = useMemo(() => {
+    return (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
+  }, []);
+
+  const validateAndSetName = useMemo(() => {
+    return (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value);
+  }, []);
+
   return (
     <Layout>
       <div>
@@ -37,13 +45,13 @@ const Login: React.FC = () => {
             type="text"
             placeholder="Nome"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={validateAndSetName}
           />
           <Input
             type="email"
             placeholder="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={validateAndSetEmail}
           />
           <Button type="submit">Login</Button>
         </form>
