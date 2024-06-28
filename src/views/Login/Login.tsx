@@ -1,4 +1,4 @@
-import React, { useContext, useState, useMemo } from 'react';
+import React, { useContext, useState, useMemo, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { validateEmail, validateName } from '../../utils/validations';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -11,6 +11,13 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const nameInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (nameInputRef.current) {
+      nameInputRef.current.focus();
+    }
+  }, []);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -46,6 +53,7 @@ const Login: React.FC = () => {
             placeholder="Nome"
             value={name}
             onChange={validateAndSetName}
+            ref={nameInputRef}
           />
           <Input
             type="email"

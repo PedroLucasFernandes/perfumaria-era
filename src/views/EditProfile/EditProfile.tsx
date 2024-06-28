@@ -1,4 +1,4 @@
-import React, { useContext, useState, useMemo } from 'react';
+import React, { useContext, useState, useMemo, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 import Input from '../../components/Input/Input';
@@ -11,6 +11,13 @@ const EditProfile: React.FC = () => {
   const { user, setUser } = useContext(AuthContext);
   const [name, setName] = useState(user?.name || '');
   const [email, setEmail] = useState(user?.email || '');
+  const nameInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (nameInputRef.current) {
+      nameInputRef.current.focus();
+    }
+  }, []);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -46,6 +53,7 @@ const EditProfile: React.FC = () => {
             placeholder="Nome"
             value={name}
             onChange={validateAndSetName}
+            ref={nameInputRef}
           />
           <Input
             type="email"

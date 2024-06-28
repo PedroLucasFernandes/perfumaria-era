@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import Layout from '../../components/Layout/Layout';
 import Input from '../../components/Input/Input';
@@ -10,6 +10,13 @@ const Contact: React.FC = () => {
   const [name, setName] = useState(user?.name || '');
   const [email, setEmail] = useState(user?.email || '');
   const [message, setMessage] = useState('');
+  const nameInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (nameInputRef.current) {
+      nameInputRef.current.focus();
+    }
+  }, []);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -27,6 +34,7 @@ const Contact: React.FC = () => {
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              ref={nameInputRef}
               required
             />
           </div>
